@@ -1,0 +1,7 @@
+{
+  "name": "DualTranslate",
+  "description": "Real-time, bi-directional speech translation bridge powered by Gemini Live API.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}

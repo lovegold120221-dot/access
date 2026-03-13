@@ -1,0 +1,62 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User profile and settings",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "email": { "type": "string" },
+        "staffLanguage": { "type": "string" },
+        "guestLanguage": { "type": "string" },
+        "staffVoice": { "type": "string" },
+        "guestVoice": { "type": "string" },
+        "topic": { "type": "string" }
+      },
+      "required": ["uid", "email"]
+    },
+    "Session": {
+      "title": "Session",
+      "description": "A translation session",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "startTime": { "type": "string", "format": "date-time" },
+        "endTime": { "type": "string", "format": "date-time" },
+        "staffLanguage": { "type": "string" },
+        "guestLanguage": { "type": "string" },
+        "topic": { "type": "string" }
+      },
+      "required": ["id", "userId", "startTime"]
+    },
+    "TranscriptTurn": {
+      "title": "TranscriptTurn",
+      "description": "A single turn in a translation session",
+      "type": "object",
+      "properties": {
+        "sessionId": { "type": "string" },
+        "timestamp": { "type": "string", "format": "date-time" },
+        "speaker": { "type": "string", "enum": ["staff", "guest", "system"] },
+        "originalText": { "type": "string" },
+        "translatedText": { "type": "string" },
+        "detectedLanguage": { "type": "string" }
+      },
+      "required": ["sessionId", "timestamp", "speaker", "originalText"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User settings and profile"
+    },
+    "/sessions/{sessionId}": {
+      "schema": "Session",
+      "description": "Translation sessions"
+    },
+    "/sessions/{sessionId}/turns/{turnId}": {
+      "schema": "TranscriptTurn",
+      "description": "Individual turns within a session"
+    }
+  }
+}
